@@ -1,0 +1,6 @@
+.background{
+	background: url("../imgs/nyc.png") no-repeat !important;
+	background-size: cover;
+	/*width: 500px;
+	height: 1000px;*/
+}
