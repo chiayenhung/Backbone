@@ -1,6 +1,11 @@
 .background{
 	background: url("../imgs/nyc.png") no-repeat !important;
 	background-size: cover;
+	background-position:fixed;
 	/*width: 500px;
 	height: 1000px;*/
+}
+
+.big_font{
+	font-size: 30px;
 }

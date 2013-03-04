@@ -16,7 +16,7 @@ window.TestView = Backbone.View.extend({
 	},
 
 	clone : function(){
-		$(this.el).append("Count: " + this.count + "</br>");
+		$(this.el).append("<div class='big_font'>Count: " + this.count + "</div></br>");
 		this.count++;
 	},
 
