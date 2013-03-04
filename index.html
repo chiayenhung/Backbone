@@ -5,6 +5,7 @@
     <script type="text/javascript" src="lib/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="lib/underscore-min.js"></script>
     <script type="text/javascript" src="lib/backbone-min.js"></script>
+    <script type="text/javascript" src='lib/jquery.mousewheel.js'></script>
 
     <script type="text/javascript" src='main.js'></script>
     <script type="text/javascript" src='util.js'></script>
@@ -17,7 +18,8 @@
    <script type="text/javascript" src="lib/jquery.backstretch.min.js"></script>
         <script type="text/javascript">
             $.backstretch("imgs/nyc.png", {speed: 1500});
-        </script> 
+        </script>
+    
    <script type="text/javascript">
 
    		$(document).ready(function(){
@@ -32,4 +34,15 @@
    		});
    </script>
 </body>
+<script>
+   $(document).ready(function(){
+    // alert("start");
+      $("body").bind("mousewheel",function(ev, delta) {
+        var scrollTop = $(window).scrollTop();
+        // alert(delta);
+        $(window).scrollTop(scrollTop - Math.round(delta * 20));
+    });
+   });
+    
+   </script>
 </html>
