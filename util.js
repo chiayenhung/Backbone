@@ -14,9 +14,17 @@ tpl = {
                     var name = names[index];
                     // console.log('Loading template: ' + name);
                     $.get('templates/' + name + '.html', function(data) {
-                        var xmlstr = data.xml ? data.xml : (new XMLSerializer()).serializeToString(data);
-                        // alert(xmlstr);
-                        that.templates[name] = xmlstr;
+                        var tmpl_string;
+                        $.ajax({
+                            url: 'templates/' + name + '.html',
+                            method: 'GET',
+                            dataType: 'text',
+                            async: false,
+                            success: function(data) {
+                                tmpl_string = data;
+                            }
+                        });
+                        that.templates[name] = tmpl_string;
                         index++;
                         if (index < names.length) {
                             loadTemplate(index);
