@@ -5,52 +5,32 @@
     <script type="text/javascript" src="lib/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="lib/underscore-min.js"></script>
     <script type="text/javascript" src="lib/backbone-min.js"></script>
-    <script type="text/javascript" src='lib/jquery.mousewheel.js'></script>
-    <script type="text/javascript" src='lib/tweet.js'></script>
 
-    <script type="text/javascript" src='main.js'></script>
-    <script type="text/javascript" src='util.js'></script>
+    <script type="text/javascript" src='js/main.js'></script>
+    <script type="text/javascript" src='js/util.js'></script>
     <script type="text/javascript" src='js/views/home.js'></script>
-    <script type="text/javascript" src='js/views/test.js'></script>
+    <script type="text/javascript" src='js/views/addQuestion.js'></script>
+    <script type="text/javascript" src='js/views/startSurvey.js'></script>
+    <script type="text/javascript" src='js/views/check.js'></script>
+    <script type="text/javascript" src='js/views/viewResult.js'></script>
+    <script type="text/javascript" src='js/models/questionModel.js'></script>
 
     <link rel="stylesheet" type="text/css" href="css/customize.css">
 </head>
 <body>
-   <iframe src="https://www.facebook.com/plugins/like.php?href=www.cs.nyu.edu/~cyh275/chiayenhung"
-        scrolling="no" frameborder="0"
-        style="border:none; width:450px; height:80px">
-   </iframe>
-   <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://cs.nyu.edu/~cyh275/chiayenhung" data-via="hodalalala" data-text="my website" data-size="large">
-    </a>
-   <script type="text/javascript" src="lib/jquery.backstretch.min.js"></script>
-        <script type="text/javascript">
-            $.backstretch("imgs/nyc.png", {speed: 1500});
-        </script>
-    
-   <script type="text/javascript">
+  
+    <script type="text/javascript">
 
    		$(document).ready(function(){
-   			tpl.loadTemplates(['home','test'],
+   			tpl.loadTemplates(['home','addQuestion','startSurvey','check', 'viewResult',],
             function () {
               console.log("app start");
                 app = new AppRouter();
-
+                localStorage.setItem("count", 0);
                 Backbone.history.start();
                 window.location.replace("#home");
              });
    		});
    </script>
-   <div id="fb-root"></div>
 </body>
-<script>
-   $(document).ready(function(){
-    // alert("start");
-      $("body").bind("mousewheel",function(ev, delta) {
-        var scrollTop = $(window).scrollTop();
-        // alert(delta);
-        $(window).scrollTop(scrollTop - Math.round(delta * 20));
-    });
-   });
-    
-   </script>
 </html>
