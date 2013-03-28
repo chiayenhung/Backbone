@@ -21,15 +21,20 @@ window.StartSurveyView = Backbone.View.extend({
 	},
 
 	finish: function(){
-		this.submitt();
+		if(!this.submitt()){
+			return;
+		}
 		$(this.el).remove();
 		return window.location.replace('#home');
 	},
 
 	next: function(){
-		this.submitt();
+
+		if(!this.submitt()){
+			return;
+		}
 		var tmp = window.app.questions.get(this.count);
-		// console.log(tmp.get('content'));	
+		// console.log(tmp.toJSON());
 		this.count++;
 		var target = "#option" + this.count;
 		$('.questionContent').hide();
@@ -39,28 +44,36 @@ window.StartSurveyView = Backbone.View.extend({
 	submitt: function(){
 		var target = "#option" + this.count;
 		if($(target).find('select').length != 0){
-			// console.log('select');
 			var answers = $(target).find('select').val();
 			window.app.questions.get(this.count).set('answers', answers);
-			return;
+			return true;
 		}
 
-		// var target = "#option" + this.count;
 		var type = $(target).find('input').attr('type');
 
 		if(type == 'text'){
 			var answers = $(target).find('input').val();
+			// console.log(answers.length);
+			if(answers.length == 0 || answers.length > 255){
+				alert("the answer length must be less then 255 or not empty!");
+				return false;
+			}
 			window.app.questions.get(this.count).set('answers', answers);
-			return;
+			return true;
 		}
 
 		var check = 'input[type=' + type + ']:checked';
 		var answers = $(target).find(check).val();
+		console.log(answers);
+		if(!answers){
+			return false;
+		}
 		// for(var i = 0; i < answers.length; i++){
 		// 	console.log(answers[i].val());
 		// }
 		// console.log($(target).find(check).val());
 		window.app.questions.get(this.count).set('answers', answers);
+		return true;
 	},
 
 	genQuestion: function(){
@@ -79,7 +92,7 @@ window.StartSurveyView = Backbone.View.extend({
 		var divId = "option" + qId;
 		var html = "<div class='questionContent' id='"+ divId + "'>";
 		html += "<p>" + question.get('content') + '</p></br>';
-		html += "<form>";
+		// html += "<form>";
 		if(type == "Check"){
 			for(var i = 0; i < optionNum; i++){
 				html += questionList[i]+"<input type='checkbox' value='" + questionList[i] + "'>";
@@ -107,7 +120,7 @@ window.StartSurveyView = Backbone.View.extend({
 		else{
 			html += "</br><button class='next'>Next</button>";
 		}
-		html += "</form>";
+		// html += "</form>";
 		html += "</div>";
 		$(this.el).find('.question_field').append(html);
 	},
