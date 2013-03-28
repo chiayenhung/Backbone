@@ -33,7 +33,7 @@ img{
 
 .container {
 	background-color: yellow;
-	/*height: 700px;*/
+	min-height: 650px;
 	border: 10px solid;
 }
 
