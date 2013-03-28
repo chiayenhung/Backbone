@@ -15,6 +15,7 @@ window.StartSurveyView = Backbone.View.extend({
 	},
 
 	events:{
+
 		'click .next': 'next',
 		'click .finish' : 'finish',
 	},

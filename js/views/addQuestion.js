@@ -2,11 +2,13 @@ window.AddQuestionView = Backbone.View.extend({
 	
 	initialize: function () {
 		this.template = _.template(tpl.get("addQuestion"));
+		this.count = 0;
 	},
 
 	render: function () {
 		$(this.el).html(this.template());
 		var page = new CheckView();
+
 		$(this.el).find(".option_content").append(page.render().el);
 		$(this.el).find('.status').append(localStorage.getItem("count"));
 		return this;
@@ -30,6 +32,7 @@ window.AddQuestionView = Backbone.View.extend({
 			console.log(options[i].value);
 			questions.push(options[i].value);
 		}
+
 		var id = localStorage.getItem("count");
 		window.app.questions.create({id: id, content: content, type: type, questions: questions});
 		// console.log(window.app.questions);
