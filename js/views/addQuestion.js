@@ -69,9 +69,7 @@ window.AddQuestionView = Backbone.View.extend({
 			return;
 		}
 		var content = $('#q_content').val();
-		// console.log(content);
 		var type = $('select').val();
-		// console.log(type);
 		var options = $('.option');
 		var questions = [];
 		for(var i = 0; i < options.length; i++){
@@ -81,7 +79,7 @@ window.AddQuestionView = Backbone.View.extend({
 
 		var id = localStorage.getItem("count");
 		window.app.questions.create({id: id, content: content, type: type, questions: questions});
-		// console.log(window.app.questions);
+		$("#numberField").val(0);
 		id++;
 		localStorage.setItem("count", id);
 		$('.status').text(id);
@@ -89,7 +87,6 @@ window.AddQuestionView = Backbone.View.extend({
 	},
 
 	addFinish: function(){
-		// alert(window.app.questions.models);
 		$(this.el).remove();
 	 	return window.location.replace("#home");
 	},
@@ -97,12 +94,9 @@ window.AddQuestionView = Backbone.View.extend({
 	change: function(event){
 		$('.option_content').empty();
 		var type = $("select").val();
-		// console.log(type);
-		// $(".option_content").hide();
-		// $("#"+type).show();
+		
 		if(type != 'Text'){
 			var page = new CheckView();
-		// console.log(page.render().html());
 			$(".option_content").append(page.render().el);
 		}
 	},
@@ -110,7 +104,6 @@ window.AddQuestionView = Backbone.View.extend({
 	genOptions: function(){
 		$('#optionsDiv').empty();
 		var content = $("#numberField").val();
-		// console.log(content);
 		for(var i = 1; i <= content; i++){
 			$('#optionsDiv').append("<div class='big_font'>" + i + ": " + "<input type='text' class='option'></div>");
 		}

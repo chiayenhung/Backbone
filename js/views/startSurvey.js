@@ -34,7 +34,6 @@ window.StartSurveyView = Backbone.View.extend({
 			return;
 		}
 		var tmp = window.app.questions.get(this.count);
-		// console.log(tmp.toJSON());
 		this.count++;
 		var target = "#option" + this.count;
 		$('.questionContent').hide();
@@ -53,7 +52,6 @@ window.StartSurveyView = Backbone.View.extend({
 
 		if(type == 'text'){
 			var answers = $(target).find('input').val();
-			// console.log(answers.length);
 			if(answers.length == 0 || answers.length > 255){
 				alert("the answer length must be less then 255 or not empty!");
 				return false;
@@ -63,15 +61,14 @@ window.StartSurveyView = Backbone.View.extend({
 		}
 
 		var check = 'input[type=' + type + ']:checked';
-		var answers = $(target).find(check).val();
-		console.log(answers);
-		if(!answers){
-			return false;
+		var tmp = $(target).find(check);
+		answers = [];
+		
+		for(var i = 0; i < tmp.length; i++){
+			console.log(tmp[i].value);
+			answers.push(tmp[i].value);
 		}
-		// for(var i = 0; i < answers.length; i++){
-		// 	console.log(answers[i].val());
-		// }
-		// console.log($(target).find(check).val());
+		
 		window.app.questions.get(this.count).set('answers', answers);
 		return true;
 	},
@@ -100,7 +97,7 @@ window.StartSurveyView = Backbone.View.extend({
 		}
 		if(type == 'Radio'){
 			for(var i = 0; i < optionNum; i++){
-				html += questionList[i]+"<input type='radio' value='" + questionList[i] + "'>";
+				html += questionList[i]+"<input type='radio' name='group1' value='" + questionList[i] + "'>";
 			}
 		}
 		if(type == 'DropDown'){
