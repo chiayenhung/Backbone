@@ -3,6 +3,7 @@ window.AddQuestionView = Backbone.View.extend({
 	initialize: function () {
 		this.template = _.template(tpl.get("addQuestion"));
 		this.count = 0;
+		this.words = 255;
 	},
 
 	render: function () {
@@ -11,6 +12,7 @@ window.AddQuestionView = Backbone.View.extend({
 
 		$(this.el).find(".option_content").append(page.render().el);
 		$(this.el).find('.status').append(localStorage.getItem("count"));
+		this.wordCount();
 		return this;
 	},
 
@@ -21,7 +23,21 @@ window.AddQuestionView = Backbone.View.extend({
 		'click #addFinish' : 'addFinish',
 	},
 
+	//for count the words in question area
+	//implement scope chain for javascript
+	wordCount: function(){
+		that = this;
+		$(this.el).find('#word').text(this.words);
+		$(this.el).find('#q_content').keyup(function() {
+			var len = $('#q_content').val().length;
+			var counts = that.words - len;
+  			$('#word').text(counts);
+		});
+	},
+
+	//validate add question content and option contens
 	validate: function(){
+		//the question shouldn't be empty or more than 255 words
 		if($('#q_content').val().length == 0 ){
 				alert('Question should not be empty');
 				return false;
@@ -30,7 +46,7 @@ window.AddQuestionView = Backbone.View.extend({
 			alert('Question content too much!');
 			return false;
 		}
-
+		//get the question type
 		var type = $("select").val();
 
 		if(type == 'Check' || type == 'Radio'){
@@ -41,10 +57,13 @@ window.AddQuestionView = Backbone.View.extend({
 				alert('number must be numbers!');
 				return false;
 			}
+			if(parseInt(str) < 0){
+				alert("invalid number");
+				return false;
+			}
+
 			try{
 				var options = $('.option');
-				console.log(options);
-				console.log(options[0]);
 				if(options[0] == undefined){
 					alert("Options are required!");
 					return false;
@@ -64,6 +83,7 @@ window.AddQuestionView = Backbone.View.extend({
 		return true;
 	},
 
+	//save question in collection
 	addQuestion: function() {
 		if(!this.validate()){
 			return;
@@ -73,17 +93,23 @@ window.AddQuestionView = Backbone.View.extend({
 		var options = $('.option');
 		var questions = [];
 		for(var i = 0; i < options.length; i++){
-			console.log(options[i].value);
 			questions.push(options[i].value);
 		}
 
 		var id = localStorage.getItem("count");
 		window.app.questions.create({id: id, content: content, type: type, questions: questions});
-		$("#numberField").val(0);
+		this.resetFields();
 		id++;
 		localStorage.setItem("count", id);
 		$('.status').text(id);
 		this.genOptions();
+	},
+
+	resetFields: function(){
+		$("#numberField").val(0);
+		$('#q_content').val("");
+		this.words = 255;
+		$('#word').text(this.words);
 	},
 
 	addFinish: function(){

@@ -39,7 +39,7 @@ window.StartSurveyView = Backbone.View.extend({
 		$('.questionContent').hide();
 		$(target).show();
 	},
-
+	//submit the answer with validate function
 	submitt: function(){
 		var target = "#option" + this.count;
 		if($(target).find('select').length != 0){
@@ -65,7 +65,6 @@ window.StartSurveyView = Backbone.View.extend({
 		answers = [];
 		
 		for(var i = 0; i < tmp.length; i++){
-			console.log(tmp[i].value);
 			answers.push(tmp[i].value);
 		}
 		
@@ -80,8 +79,8 @@ window.StartSurveyView = Backbone.View.extend({
 		}, this);
 	},
 
+	//dynamically add question type
 	switchQuestionType: function(question){
-		// alert(question.get('id'));
 		var type = question.get('type');
 		var questionList = question.get('questions');
 		var optionNum = questionList.length;

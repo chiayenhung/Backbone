@@ -5,7 +5,6 @@ window.CheckView = Backbone.View.extend({
 	},
 
 	render: function () {
-		// console.log(this.template);
 		$(this.el).html(this.template());
 		return this;
 	},

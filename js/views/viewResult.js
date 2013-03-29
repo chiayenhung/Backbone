@@ -26,6 +26,7 @@ window.ViewResultView = Backbone.View.extend({
 		}, this);
 	},
 
+	//load template and populate via json
 	populate: function(model){
 		$(this.el).find('.answerField').append(new AnswerView({model: model}).render().el);
 	},

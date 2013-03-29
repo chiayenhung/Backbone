@@ -1,5 +1,5 @@
 window.QuestionModel = Backbone.Model.extend({
-  urlRoot: '/user',
+  urlRoot: '/question',
   initialize: function() {
 
   }
