@@ -89,20 +89,36 @@ window.AddQuestionView = Backbone.View.extend({
 			return;
 		}
 		var content = $('#q_content').val();
-		var type = $('select').val();
+		// var type = $('select').val();
 		var options = $('.option');
 		var questions = [];
 		for(var i = 0; i < options.length; i++){
 			questions.push(options[i].value);
 		}
-
+		
 		var id = localStorage.getItem("count");
-		window.app.questions.create({id: id, content: content, type: type, questions: questions});
+		var questionSet = this.createModel(content, questions, id);
+
+		window.app.questions.push(questionSet);
+		console.log(window.app.questions.get(id).toJSON());
+		console.log(window.app.questions.get(id).get('checkbox').toJSON());
+		console.log(window.app.questions.get(id).get('radio').toJSON());
+		console.log(window.app.questions.get(id).get('dropdown').toJSON());
+		console.log(window.app.questions.get(id).get('text').toJSON());
 		this.resetFields();
 		id++;
 		localStorage.setItem("count", id);
 		$('.status').text(id);
 		this.genOptions();
+	},
+
+	createModel: function(content, questions, id){
+		var check = new CheckModel({type: 'checkbox', content: content, questions: questions});
+		var radio = new RadioModel({type: 'radio', content: content, questions: questions});
+		var dropdown = new DropdownModel({type: 'dropdown', content: content, questions: questions});
+		var text = new TextModel({type: 'text', content: content});
+		return new QuestionSet({id: id, checkbox: check, radio: radio, dropdown: dropdown, text: text});
+
 	},
 
 	resetFields: function(){

@@ -20,9 +20,9 @@ window.ViewResultView = Backbone.View.extend({
 	},
 
 	genAnswers: function(){
-		var questions = window.app.questions;
-		_.each(questions.models, function(question){
-			this.populate(question);
+		var answers = window.app.answers;
+		_.each(answers.models, function(answer){
+			this.populate(answer);
 		}, this);
 	},
 

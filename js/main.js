@@ -9,6 +9,7 @@ var AppRouter = Backbone.Router.extend({
 	initialize: function(){
 		
 		this.questions = new QuestionCollection();
+		this.answers = new AnswerCollection();
 	},
 
 	viewResult: function(){
