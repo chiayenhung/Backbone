@@ -10,7 +10,6 @@ window.StartSurveyView = Backbone.View.extend({
 
 		$(this.el).html(this.template());
 		this.genQuestion();
-		console.log(this.el);
 		$(this.el).find('.questionContent').hide();
 		$(this.el).find('.questionContent').first().show();
 		return this;
@@ -28,7 +27,6 @@ window.StartSurveyView = Backbone.View.extend({
 			return;
 		}
 		this.currentQuestion.set('id', this.count);
-		console.log(this.currentQuestion.toJSON());
 		app.answers.push(this.currentQuestion);
 		$(this.el).remove();
 		return window.location.replace('#home');
@@ -57,7 +55,6 @@ window.StartSurveyView = Backbone.View.extend({
 		}
 
 		var type = $(target).find('input').attr('type');
-		console.log(type);
 		if(type == 'text'){
 			var answers = $(target).find('input').val();
 			if(answers.length == 0 || answers.length > 255){
@@ -75,7 +72,6 @@ window.StartSurveyView = Backbone.View.extend({
 		for(var i = 0; i < tmp.length; i++){
 			answers.push(tmp[i].value);
 		}
-		console.log(answers);
 		this.currentQuestion.set('answers', answers);
 		return true;
 	},
@@ -112,7 +108,8 @@ window.StartSurveyView = Backbone.View.extend({
 	changeOptions: function(){
 		var target = $('.switchQuestion').val().toLowerCase();
 		var question = app.questions.get(this.count).get(target);
-		console.log(question.get('type'));
+		// console.log(question.get('type'));
+		this.currentQuestion = question;
 		var html = this.genOptionContent(question, this.count).render().el;
 		var divId = "#option" + this.count;
 		$(divId).empty();
@@ -121,9 +118,7 @@ window.StartSurveyView = Backbone.View.extend({
 
 	produceOptions: function(questionSet){
 		var target = $(this.el).find('option').first().val().toLowerCase();
-		console.log(target);
 		var question = questionSet.get(target);
-		console.log(question.toJSON());
 		var html = this.genOptionContent(question, questionSet.get('id')).render().el;
 		$(this.el).find('.question_field').append(html);
 	},

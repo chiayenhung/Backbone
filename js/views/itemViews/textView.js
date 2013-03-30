@@ -6,8 +6,6 @@ window.TextView = Backbone.View.extend({
 	render: function () {
 		
 		var question = this.model;
-		var questionList = question.get('questions');
-		var optionNum = questionList.length;
 		var qId = this.attributes.qId;
 		var divId = "option" + qId;
 

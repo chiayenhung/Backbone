@@ -1,6 +1,9 @@
 window.TextModel = QuestionModel.extend({
+	defaults: {
+    	type:  "text",    
+  	},
 
 	initialize: function(){
-		delete this.questions;
+		this.unset('questions');
 	}
 });

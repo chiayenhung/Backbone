@@ -107,10 +107,10 @@ window.AddQuestionView = Backbone.View.extend({
 	},
 
 	createModel: function(content, questions, id){
-		var check = new CheckModel({type: 'checkbox', content: content, questions: questions});
-		var radio = new RadioModel({type: 'radio', content: content, questions: questions});
-		var dropdown = new DropdownModel({type: 'dropdown', content: content, questions: questions});
-		var text = new TextModel({type: 'text', content: content});
+		var check = new CheckModel({content: content, questions: questions});
+		var radio = new RadioModel({content: content, questions: questions});
+		var dropdown = new DropdownModel({content: content, questions: questions});
+		var text = new TextModel({content: content});
 		return new QuestionSet({id: id, checkbox: check, radio: radio, dropdown: dropdown, text: text});
 
 	},

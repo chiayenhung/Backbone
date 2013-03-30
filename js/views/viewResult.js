@@ -14,6 +14,7 @@ window.ViewResultView = Backbone.View.extend({
 		'click .back' : 'back',
 	},
 
+	
 	back: function(){
 		$(this.el).remove();
 		return window.location.replace('#home');
