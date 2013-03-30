@@ -1,4 +1,4 @@
 Backbone
 ========
 
-backbone.js simple
+backbone.js simple survey engine
