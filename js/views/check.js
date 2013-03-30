@@ -1,4 +1,4 @@
-window.CheckView = Backbone.View.extend({
+window.OptionView = Backbone.View.extend({
 	
 	initialize: function () {
 		this.template = _.template(tpl.get("check"));

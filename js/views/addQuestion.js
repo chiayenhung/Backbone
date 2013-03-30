@@ -8,7 +8,7 @@ window.AddQuestionView = Backbone.View.extend({
 
 	render: function () {
 		$(this.el).html(this.template());
-		var page = new CheckView();
+		var page = new OptionView();
 
 		$(this.el).find(".option_content").append(page.render().el);
 		$(this.el).find('.status').append(localStorage.getItem("count"));
@@ -49,37 +49,36 @@ window.AddQuestionView = Backbone.View.extend({
 		//get the question type
 		var type = $("select").val();
 
-		if(type == 'Check' || type == 'Radio'){
-			var str = $('#numberField').val();
-			var regex = new RegExp('\\d+');
-			var match = regex.exec(str);
-			if(match == null){
-				alert('number must be numbers!');
-				return false;
-			}
-			if(parseInt(str) < 0){
-				alert("invalid number");
-				return false;
-			}
+		var str = $('#numberField').val();
+		var regex = new RegExp('\\d+');
+		var match = regex.exec(str);
+		if(match == null){
+			alert('number must be numbers!');
+			return false;
+		}
+		if(parseInt(str) < 0){
+			alert("invalid number");
+			return false;
+		}
 
-			try{
-				var options = $('.option');
-				if(options[0] == undefined){
-					alert("Options are required!");
-					return false;
-				}
-				for(var i = 0; i < options.length; i++){
-					if(options[i].value.length == 0){
-						alert("option cannot be empty!");
-						return false;
-					}
-				}
-			}
-			catch(e){
+		try{
+			var options = $('.option');
+			if(options[0] == undefined){
 				alert("Options are required!");
 				return false;
 			}
+			for(var i = 0; i < options.length; i++){
+				if(options[i].value.length == 0){
+					alert("option cannot be empty!");
+					return false;
+				}
+			}
 		}
+		catch(e){
+			alert("Options are required!");
+			return false;
+		}
+		//}
 		return true;
 	},
 
@@ -100,11 +99,6 @@ window.AddQuestionView = Backbone.View.extend({
 		var questionSet = this.createModel(content, questions, id);
 
 		window.app.questions.push(questionSet);
-		console.log(window.app.questions.get(id).toJSON());
-		console.log(window.app.questions.get(id).get('checkbox').toJSON());
-		console.log(window.app.questions.get(id).get('radio').toJSON());
-		console.log(window.app.questions.get(id).get('dropdown').toJSON());
-		console.log(window.app.questions.get(id).get('text').toJSON());
 		this.resetFields();
 		id++;
 		localStorage.setItem("count", id);
@@ -138,7 +132,7 @@ window.AddQuestionView = Backbone.View.extend({
 		var type = $("select").val();
 		
 		if(type != 'Text'){
-			var page = new CheckView();
+			var page = new OptionView();
 			$(".option_content").append(page.render().el);
 		}
 	},
