@@ -28,6 +28,10 @@ window.HomeView = Backbone.View.extend({
 	},
 
 	startSurvey: function(){
+		if(app.questions.length <= 0){
+			alert('There is no question yet, please add some!');
+			return false
+		}
 		$(this.el).remove();
 		return window.location.replace("#startSurvey");
 	},

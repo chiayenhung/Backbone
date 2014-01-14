@@ -138,8 +138,12 @@ window.AddQuestionView = Backbone.View.extend({
 	},
 
 	genOptions: function(){
-		$('#optionsDiv').empty();
 		var content = $("#numberField").val();
+		if(content <= 0){
+			// alert('Options number is required and must over 0!');
+			return false
+		}		
+		$('#optionsDiv').empty();
 		for(var i = 1; i <= content; i++){
 			$('#optionsDiv').append("<div class='big_font'>" + i + ": " + "<input type='text' class='option'></div>");
 		}
